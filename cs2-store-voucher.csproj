@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -15,7 +15,9 @@
         <None Update="lang\**\*.*" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\StoreApi\StoreApi.csproj" />
+	<ItemGroup>
+        <Reference Include="StoreApi">
+            <HintPath>StoreApi.dll</HintPath>
+        </Reference>
     </ItemGroup>
 </Project>
