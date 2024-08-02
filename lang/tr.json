@@ -1,0 +1,9 @@
+{
+    "Prefix": "{red}[Kupon] {white}",
+
+    "No permission to generate voucher": "Kupon oluşturma izniniz yok.",
+    "Not enough credits": "Bu kuponları oluşturmak için yeterli krediniz yok.",
+    "Generated voucher": "Kupon oluşturuldu: {gold}{0} {white}değer {green}{1} {white}kredi",
+    "Voucher redeemed successfully": "Kupon başarıyla kullanıldı. {green}{0} {white}kredi kazandınız.",
+    "Invalid or already used": "Geçersiz veya zaten kullanılmış kupon kodu"
+}
