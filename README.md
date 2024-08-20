@@ -5,6 +5,7 @@ Voucher module for Store: Create vouchers to give credits and redeem them to rec
 Config will be auto generated. Default:
 ```json
 {
+  "max_vouchers_per_command": 20 // Maximum vouchers that can be generated per command
   "generate_voucher_admin_only": false,
   "generate_voucher_admin_flag": "@css/generic",
   "skip_credit_check_flag_enabled": false,
