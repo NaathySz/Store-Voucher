@@ -2,6 +2,7 @@
     "Prefix": "{red}[Kupon] {white}",
 
     "No permission to generate voucher": "Kupon oluşturma izniniz yok.",
+    "Maximum vouchers per command exceeded": "Komut başına izin verilen maksimum kupon sayısı aşıldı. Limit: {red}{0}",
     "Not enough credits": "Bu kuponları oluşturmak için yeterli krediniz yok.",
     "Generated voucher": "Kupon oluşturuldu: {gold}{0} {white}değer {green}{1} {white}kredi",
     "Voucher redeemed successfully": "Kupon başarıyla kullanıldı. {green}{0} {white}kredi kazandınız.",
