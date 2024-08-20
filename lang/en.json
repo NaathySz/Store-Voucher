@@ -2,6 +2,7 @@
     "Prefix": "{red}[Voucher] {white}",
 
     "No permission to generate voucher": "You do not have permission to generate vouchers",
+    "Maximum vouchers per command exceeded": "Exceeded the maximum number of vouchers allowed per command. Limit: {red}{0}",
     "Not enough credits": "You do not have enough credits to generate these vouchers",
     "Generated voucher": "Generated voucher: {gold}{0} {white}worth {green}{1} {white}credits",
     "Voucher redeemed successfully": "Voucher redeemed successfully. You received {green}{0} {white}credits",
