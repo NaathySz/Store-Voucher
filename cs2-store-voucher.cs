@@ -9,15 +9,17 @@ using System.Text.Json.Serialization;
 
 public class Store_VoucherConfig : BasePluginConfig
 {
+    [JsonPropertyName("Max_vouchers_per_command")]
+    public int MaxVouchersPerCommand { get; set; } = 20;
 
     [JsonPropertyName("generate_voucher_admin_only")]
-    public bool GenerateVoucherAdminOnly { get; set; } = false;
+    public bool GenerateVoucherAdminOnly { get; set; } = true;
 
     [JsonPropertyName("generate_voucher_admin_flag")]
     public string GenerateVoucherAdminFlag { get; set; } = "@css/generic";
 
     [JsonPropertyName("skip_credit_check_flag_enabled")]
-    public bool SkipCreditCheckFlagEnabled { get; set; } = false;
+    public bool SkipCreditCheckFlagEnabled { get; set; } = true;
 
     [JsonPropertyName("skip_credit_check_flag")]
     public string SkipCreditCheckFlag { get; set; } = "@css/slay";
@@ -47,7 +49,7 @@ public class Store_VoucherConfig : BasePluginConfig
 public class Store_Voucher : BasePlugin, IPluginConfig<Store_VoucherConfig>
 {
     public override string ModuleName => "Store Module [Voucher]";
-    public override string ModuleVersion => "0.0.2";
+    public override string ModuleVersion => "0.1.0";
     public override string ModuleAuthor => "Nathy";
 
     public IStoreApi? StoreApi { get; set; }
@@ -91,12 +93,19 @@ public class Store_Voucher : BasePlugin, IPluginConfig<Store_VoucherConfig>
             return;
         }
 
+        int quantity = int.Parse(info.GetArg(1));
+        int creditsPerVoucher = int.Parse(info.GetArg(2));
+
+        if (quantity > Config.MaxVouchersPerCommand)
+        {
+            info.ReplyToCommand(Localizer["Prefix"] + Localizer["Maximum vouchers per command exceeded", Config.MaxVouchersPerCommand]);
+            return;
+        }
+
         bool skipCreditCheck = Config.SkipCreditCheckFlagEnabled && AdminManager.PlayerHasPermissions(player, Config.SkipCreditCheckFlag);
 
         if (!skipCreditCheck)
         {
-            int quantity = int.Parse(info.GetArg(1));
-            int creditsPerVoucher = int.Parse(info.GetArg(2));
             int totalCost = quantity * creditsPerVoucher;
 
             if (StoreApi.GetPlayerCredits(player) < totalCost)
@@ -106,10 +115,7 @@ public class Store_Voucher : BasePlugin, IPluginConfig<Store_VoucherConfig>
             }
         }
 
-        int qty = int.Parse(info.GetArg(1));
-        int credits = int.Parse(info.GetArg(2));
-
-        GenerateVouchers(player, qty, credits, info, skipCreditCheck);
+        GenerateVouchers(player, quantity, creditsPerVoucher, info, skipCreditCheck);
     }
 
     [CommandHelper(minArgs: 1, usage: "<voucher_code>")]
