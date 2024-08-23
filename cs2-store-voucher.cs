@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 public class Store_VoucherConfig : BasePluginConfig
 {
-    [JsonPropertyName("Max_vouchers_per_command")]
+    [JsonPropertyName("max_vouchers_per_command")]
     public int MaxVouchersPerCommand { get; set; } = 20;
 
     [JsonPropertyName("generate_voucher_admin_only")]
@@ -23,6 +23,12 @@ public class Store_VoucherConfig : BasePluginConfig
 
     [JsonPropertyName("skip_credit_check_flag")]
     public string SkipCreditCheckFlag { get; set; } = "@css/slay";
+
+    [JsonPropertyName("print_to_server_console")]
+    public bool PrintToServerConsole { get; set; } = false;
+
+    [JsonPropertyName("print_to_client_console")]
+    public bool PrintToClientConsole { get; set; } = true;
 
     [JsonPropertyName("generate_voucher_commands")]
     public List<string> GenerateVoucherCommands { get; set; } = ["generate_voucher"];
@@ -49,7 +55,7 @@ public class Store_VoucherConfig : BasePluginConfig
 public class Store_Voucher : BasePlugin, IPluginConfig<Store_VoucherConfig>
 {
     public override string ModuleName => "Store Module [Voucher]";
-    public override string ModuleVersion => "0.1.0";
+    public override string ModuleVersion => "0.2.0";
     public override string ModuleAuthor => "Nathy";
 
     public IStoreApi? StoreApi { get; set; }
@@ -160,6 +166,16 @@ public class Store_Voucher : BasePlugin, IPluginConfig<Store_VoucherConfig>
                 }
 
                 player.PrintToChat(Localizer["Prefix"] + Localizer["Generated voucher", voucherCode, creditsPerVoucher]);
+
+                if (Config.PrintToClientConsole)
+                {
+                    player.PrintToConsole($"{voucherCode}");
+                }
+
+                if (Config.PrintToServerConsole)
+                {
+                    Console.WriteLine($"{voucherCode}");
+                }
             }
         }
     }
